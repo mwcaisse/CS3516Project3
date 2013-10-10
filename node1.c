@@ -8,7 +8,7 @@ extern int YES;
 extern int NO;
 
 //cost of connections to neighbors.
-int local_costs1[4] = {1,0,1,1000};
+int local_costs1[4] = {1,0,1,COST_INF};
 
 struct distance_table dt1;
 

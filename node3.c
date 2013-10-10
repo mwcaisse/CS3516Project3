@@ -10,7 +10,7 @@ extern int NO;
 struct distance_table dt3;
 
 //cost of connections to neighbors.
-int local_costs3[4] = {7,1000,2,0};
+int local_costs3[4] = {7,COST_INF,2,0};
 
 /* students to write the following two routines, and maybe some others */
 

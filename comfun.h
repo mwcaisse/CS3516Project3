@@ -1,6 +1,9 @@
 #ifndef COMFUN_H
 #define COMFUN_H
 
+#define NUM_NODES (4)
+#define COST_INF (999)
+
 /* a rtpkt is the packet sent from one routing update process to
 	 another via the call tolayer3() */
 struct rtpkt {
