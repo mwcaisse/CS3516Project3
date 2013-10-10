@@ -1,9 +1,9 @@
 #ifndef COMFUN_H
 #define COMFUN_H
 
-
-// -.-
-extern struct rtpkt {
+/* a rtpkt is the packet sent from one routing update process to
+	 another via the call tolayer3() */
+struct rtpkt {
 	int sourceid;       /* id of sending router sending this pkt */
 	int destid;         /* id of router to which pkt being sent 
                          (must be an immediate neighbor) */

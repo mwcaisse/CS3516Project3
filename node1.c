@@ -7,10 +7,8 @@ extern int TRACE;
 extern int YES;
 extern int NO;
 
-int connectcosts1[4] = { 1,  0,  1, 999 };
-
 //cost of connections to neighbors.
-int local_costs[4] = {1,0,1,1000}
+int local_costs1[4] = {1,0,1,1000};
 
 struct distance_table dt1;
 
@@ -20,7 +18,7 @@ struct distance_table dt1;
 
 rtinit1() 
 {
-
+	initialize_node(1, local_costs1, &dt1);
 }
 
 
@@ -28,7 +26,7 @@ rtupdate1(rcvdpkt)
   struct rtpkt *rcvdpkt;
   
 {
-
+	update_node(1, &dt1, rcvdpkt);
 }
 
 

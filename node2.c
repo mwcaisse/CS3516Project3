@@ -6,16 +6,18 @@ extern int TRACE;
 extern int YES;
 extern int NO;
 
+
 struct distance_table dt2;
 
 //cost of connections to neighbors.
-int local_costs[4] = {3,1,0,2}
+int local_costs2[4] = {3,1,0,2};
 
 
 /* students to write the following two routines, and maybe some others */
 
 void rtinit2() 
 {
+	initialize_node(2, local_costs2, &dt2);
 }
 
 
@@ -23,7 +25,7 @@ void rtupdate2(rcvdpkt)
   struct rtpkt *rcvdpkt;
   
 {
-
+	update_node(2, &dt2, rcvdpkt);
 }
 
 
