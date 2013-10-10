@@ -24,6 +24,9 @@ void initialize_node(int nodeid, int* local_costs, struct distance_table* distan
 			distance_table->costs[i][j] = COST_INF;
 		}
 	}
+	
+	printf("Node %d initialization done, printing distance table \n", nodeid);
+	print_distance_table(nodeid, distance_table);
 
 }
 
@@ -45,8 +48,8 @@ void create_update_packet(int nodeid, struct distance_table* distance_table,
 
 void print_distance_table(int nodeid, struct distance_table* dist_tbl) {
 	printf("Node %d Distance table \n", nodeid);
-	printf("\t VIA \n");
-	printf("\t\t0\t1\t2\t3\n");
+	printf("VIA\tTO\n");
+	printf("\t0\t1\t2\t3\n");
 	printf("0\t%d\t%d\t%d\t%d\n", dist_tbl->costs[0][0],dist_tbl->costs[0][1],
 		dist_tbl->costs[0][2],dist_tbl->costs[0][3]);
 	printf("1\t%d\t%d\t%d\t%d\n", dist_tbl->costs[1][0],dist_tbl->costs[1][1],
