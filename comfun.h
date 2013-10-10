@@ -51,10 +51,11 @@ void create_update_packet(int nodeid, struct distance_table* distance_table,
 
 
 /** Printso ut the given deistance table
+	@param nodeid THe ID of the node whose distance table is being printed
 	@param dist_tbl Pointer to the distance table to print out
 */
 
-void print_distance_table(struct distance_table* dist_tbl);
+void print_distance_table(int nodeid, struct distance_table* dist_tbl);
 
 
 
