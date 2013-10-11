@@ -25,7 +25,7 @@ void rtupdate3(rcvdpkt)
   struct rtpkt *rcvdpkt;
   
 {
-	update_node(3, &dt3, neighbors3, rcvdpkt);
+	update_node(3, neighbors3, &dt3, rcvdpkt);
 }
 
 

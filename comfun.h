@@ -47,9 +47,11 @@ void send_to_neighbor(int src_node, int dest_node, struct rtpkt* rtpkt);
 
 /** Sends an updated distance table to all of hte specified nodes neighbors
 	@param nodeid THe id of the sending node
-	@param distance_table Pointer to 
+	@param neighbors Array containing the nodes neighbors
+	@param distance_table Pointer to the distance table for the node
+*/
 
-void update_neighbors(int nodeid, struct distance_table* distance_table)
+void update_neighbors(int nodeid, int* neighbors, struct distance_table* distance_table);
 
 /** Creates an update packet to send to neighbors for the specified node
 	@param src_node THe node id of the source node
@@ -62,12 +64,19 @@ void create_update_packet(int nodeid, struct distance_table* distance_table,
 	struct rtpkt*  update_packet);
 
 
-/** Printso ut the given deistance table
+/** Prints out the given deistance table
 	@param nodeid THe ID of the node whose distance table is being printed
 	@param dist_tbl Pointer to the distance table to print out
 */
 
 void print_distance_table(int nodeid, struct distance_table* dist_tbl);
+
+/** Prints out the minimum costs in the given update packet
+	@param The id of the node who is calling this funct
+	@param update_packet The update packet the node received
+*/
+
+void print_min_costs(int nodeid, struct rtpkt* update_packet);
 
 
 
