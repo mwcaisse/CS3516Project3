@@ -40,6 +40,14 @@ void initialize_node(int nodeid, int* local_costs, int* neighbors, struct distan
 void update_node(int nodeid, int* neighbors, struct distance_table* distance_table, struct rtpkt* rtpkt) {
 	printf("Node %d received an update packet!! Hoorah! \n", nodeid);
 	print_min_costs(nodeid, rtpkt);
+	
+	
+	
+	//SHALL WE PARSE THEESE MIN COSTSSSSSS!!!!!!!!!!!!!!
+	int i=0;
+	for (i =0;i < NUM_NODES; i++) {
+		
+	}
 }
 
 void update_neighbors(int nodeid, int* neighbors, struct distance_table* distance_table) {
@@ -82,6 +90,22 @@ void create_update_packet(int nodeid, struct distance_table* distance_table,
 	
 	//now we will send to neighbors
 	
+}
+
+int min_cost_to(int nodeid, int dest_node, struct distance_table* distance_table) {
+	int min_cost = COST_INF;
+	int via = 0; // the node that we go through for this min cost
+	int j=0;
+	
+	for (j=0; j < NUM_NODES; j++) {
+		//minimum cost is the cost in the distance table to that node, + our cost to that node
+		int tmp = distance_table->costs[nodeid][j] + distance_table[j][nodeid];
+		if (tmp < min_cost) {
+			mi_cost = tmp;
+		}
+	}
+	
+	return min_cost;
 }
 
 

@@ -62,6 +62,14 @@ void update_neighbors(int nodeid, int* neighbors, struct distance_table* distanc
 
 void create_update_packet(int nodeid, struct distance_table* distance_table, 
 	struct rtpkt*  update_packet);
+	
+/** Determines the min cost of nodeid to the destination node
+	@param nodeid The node calling this function
+	@param dest_node The destination node to find the min path to
+	@param distance_table The distance table for the nodeid
+*/
+
+int min_cost_to(int nodeid, int dest_node, struct distance_table* distance_table);
 
 
 /** Prints out the given deistance table
