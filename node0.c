@@ -12,19 +12,20 @@ struct distance_table dt0;
 
 //cost of connections to neighbors.
 int local_costs0[4] = {0,1,3,7};
+int neighbors0[4] = {1,2,3,-1}; // Node 0's neighbors, terminated by -1
 
 /* students to write the following two routines, and maybe some others */
 
 void rtinit0() 
 {
-	initialize_node(0, local_costs0, &dt0);
+	initialize_node(0, local_costs0, neighbors0, &dt0);
 }
 
 
 void rtupdate0(rcvdpkt)
   struct rtpkt *rcvdpkt;
 {
-	update_node(0, &dt0, rcvdpkt);
+	update_node(0, neighbors0, &dt0, rcvdpkt);
 }
 
 

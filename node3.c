@@ -11,12 +11,13 @@ struct distance_table dt3;
 
 //cost of connections to neighbors.
 int local_costs3[4] = {7,COST_INF,2,0};
+int neighbors3[3] = {0,2,-1};
 
 /* students to write the following two routines, and maybe some others */
 
 void rtinit3() 
 {
-	initialize_node(3, local_costs3, &dt3);
+	initialize_node(3, local_costs3, neighbors3, &dt3);
 }
 
 
@@ -24,7 +25,7 @@ void rtupdate3(rcvdpkt)
   struct rtpkt *rcvdpkt;
   
 {
-	update_node(3, &dt3, rcvdpkt);
+	update_node(3, &dt3, neighbors3, rcvdpkt);
 }
 
 

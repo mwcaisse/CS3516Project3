@@ -7,7 +7,7 @@
 extern int TRACE;
 
 
-void initialize_node(int nodeid, int* local_costs, struct distance_table* distance_table) {
+void initialize_node(int nodeid, int* local_costs, int* neighbors, struct distance_table* distance_table) {
 	int i;
 	int j;
 	
@@ -31,21 +31,38 @@ void initialize_node(int nodeid, int* local_costs, struct distance_table* distan
 }
 
 
-void update_node(int nodeid, struct distance_table* distance_table, struct rtpkt* rtpkt) {
+void update_node(int nodeid, int* neighbors, struct distance_table* distance_table, struct rtpkt* rtpkt) {
 
 }
 
 void update_neighbors(int nodeid, struct distance_table* distance_table) {
-
+	struct rtpkt update_packet; // the update packet we will use to send to neighbors
+	
 }
 
 void send_to_neighbors(int src_node, int dest_node, struct rtpkt* rtpkt) {
 
+	
 }
 
 
 void create_update_packet(int nodeid, struct distance_table* distance_table, 
-	struct rtpkt*  update_packet) {
+	struct rtpkt*  update_packet);
+	int i;
+	int j;
+	
+	//put the minimum costs into the update packet
+	for (i=0;i<NUM_NODES;i++) {
+		int min = COST_INF;
+		for (j=0;j<NUM_NODES;j++) {
+			if (distance_table->costs[i][j] < min) {
+				min = distance_table->costs[i][j];
+			}
+		}
+		update_packet.mincost[i] = min;
+	}
+	
+	//now we will send to neighbors
 	
 }
 

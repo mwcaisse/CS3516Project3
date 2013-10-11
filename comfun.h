@@ -22,18 +22,20 @@ struct distance_table {
 /** Initializes the given node
 	@param nodeid The ID of the node that is being initialized
 	@param local_costs An integer array of the cost of connecting to the nodes neighbors
+	@param neighbors An array of the nodes neighbors, terminated by -1
 	@param distance_table Pointer to the nodes distance table
 */
 
-void initialize_node(int nodeid, int* local_costs, struct distance_table* distance_table);
+void initialize_node(int nodeid, int* local_costs,int* neighbors, struct distance_table* distance_table);
 
 /** Updates the nodes distance table, and neighbors when an update packet is received
 	@param nodeid The ID of the node that ie being updated
+	@param neighbors An array of the nodes neighbors, terminated by -1
 	@param distance_table Pointer to the distance table struct of the node
 	@param rtpkt The update packet that the node received
 */
 
-void update_node(int nodeid, struct distance_table* distance_table, struct rtpkt* rtpkt);
+void update_node(int nodeid, int* neighbors, struct distance_table* distance_table, struct rtpkt* rtpkt);
 
 /** Sends the given packet to the specified neighbor
 	@param src_node The source node that is sending the packet
