@@ -35,12 +35,19 @@ void initialize_node(int nodeid, int* local_costs, struct distance_table* distan
 
 void update_node(int nodeid, struct distance_table* distance_table, struct rtpkt* rtpkt);
 
-/** Sends the given packet to the calling nodes neighbors
-	@param nodeid the ID of the sending node
+/** Sends the given packet to the specified neighbor
+	@param src_node The source node that is sending the packet
+	@oaram dest_node The node to send the packet to
 	@param rtpkt The packet to send to the nodes neighbors
 */
 
-void send_to_neighbors(int src_node, int dest_node, struct rtpkt* rtpkt);
+void send_to_neighbor(int src_node, int dest_node, struct rtpkt* rtpkt);
+
+/** Sends an updated distance table to all of hte specified nodes neighbors
+	@param nodeid THe id of the sending node
+	@param distance_table Pointer to 
+
+void update_neighbors(int nodeid, struct distance_table* distance_table)
 
 /** Creates an update packet to send to neighbors for the specified node
 	@param src_node THe node id of the source node

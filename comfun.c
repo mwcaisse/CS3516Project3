@@ -35,6 +35,9 @@ void update_node(int nodeid, struct distance_table* distance_table, struct rtpkt
 
 }
 
+void update_neighbors(int nodeid, struct distance_table* distance_table) {
+
+}
 
 void send_to_neighbors(int src_node, int dest_node, struct rtpkt* rtpkt) {
 
