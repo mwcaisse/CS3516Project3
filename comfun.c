@@ -45,7 +45,7 @@ void update_node(int nodeid, int* neighbors, struct distance_table* distance_tab
 	int cost_to_node = min_cost_to(nodeid, senderid, distance_table);
 	
 	int orig_min_costs[NUM_NODES];
-	get_min_costs(nodeid, distance_table, orig_min_costs);
+	get_min_costs(nodeid, distance_table, &orig_min_costs);
 	
 	
 	//SHALL WE PARSE THEESE MIN COSTSSSSSS!!!!!!!!!!!!!!
@@ -61,7 +61,7 @@ void update_node(int nodeid, int* neighbors, struct distance_table* distance_tab
 	}
 	if (changes) { // only do this if we made any changes above
 		int new_min_costs[NUM_NODES];
-		get_min_costs(nodeid, distance_table, new_min_costs);
+		get_min_costs(nodeid, distance_table, &new_min_costs);
 		
 		int update_neighbors = 0;
 		
@@ -73,18 +73,19 @@ void update_node(int nodeid, int* neighbors, struct distance_table* distance_tab
 		}
 	
 		if (update_neighbors) {
+			printf("Node: %d, CHANGES WERE MADEEEE \n", nodeid);
 			//if we made a change update our neighbors saying we did. hoorah
 			//update_neighbors(nodeid, neighbors, distance_table);
 		}
 	}
 }
 
-void get_min_costs(int nodeid, struct distance_table* distance_table, int* min_costs) {
+void get_min_costs(int nodeid, struct distance_table* distance_table, int (*min_costs)[NUM_NODES]) {
 	int i;
 	
 	//find the min costs
 	for (i=0; i < NUM_NODES; i++) {
-		min_costs[i] = min_cost_to(nodeid, i, distance_table);
+		(*min_costs)[i] = min_cost_to(nodeid, i, distance_table);
 	}
 }
 
@@ -113,7 +114,7 @@ void create_update_packet(int nodeid, struct distance_table* distance_table,
 	struct rtpkt*  update_packet) {
 	
 	update_packet->sourceid = nodeid;
-	get_min_costs(nodeid, distance_table, update_packet->mincost);
+	get_min_costs(nodeid, distance_table, &(update_packet->mincost));
 	
 }
 

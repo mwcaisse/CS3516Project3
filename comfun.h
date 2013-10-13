@@ -43,7 +43,7 @@ void update_node(int nodeid, int* neighbors, struct distance_table* distance_tab
 	@param min_costs A pointer to an array to put the min costs in
 */
 
-void get_min_costs(int nodeid, struct distance_table* distance_table, int* min_costs);
+void get_min_costs(int nodeid, struct distance_table* distance_table, int (*min_costs)[NUM_NODES]);
 
 /** Sends the given packet to the specified neighbor
 	@param src_node The source node that is sending the packet
