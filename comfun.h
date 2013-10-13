@@ -15,7 +15,7 @@ struct rtpkt {
   
   //distance table struct
 struct distance_table {
-	int costs[4][4];
+	int costs[4][4]; // cost will contain full cost to node i
 };
 
 
@@ -37,13 +37,21 @@ void initialize_node(int nodeid, int* local_costs,int* neighbors, struct distanc
 
 void update_node(int nodeid, int* neighbors, struct distance_table* distance_table, struct rtpkt* rtpkt);
 
+/** Calculates the minimum costs to every node for the given node, and puts them into min_costs
+	@param nodeid The ID of the node to calculate the min costs for
+	@param distance_table A pointer to the nodes distance table
+	@param min_costs A pointer to an array to put the min costs in
+*/
+
+void get_min_costs(int nodeid, struct distance_table* distance_table, int* min_costs);
+
 /** Sends the given packet to the specified neighbor
 	@param src_node The source node that is sending the packet
 	@oaram dest_node The node to send the packet to
 	@param rtpkt The packet to send to the nodes neighbors
 */
 
-void send_to_neighbor(int src_node, int dest_node, struct rtpkt* rtpkt);
+void send_to_neighbor(int dest_node, struct rtpkt* rtpkt);
 
 /** Sends an updated distance table to all of hte specified nodes neighbors
 	@param nodeid THe id of the sending node
