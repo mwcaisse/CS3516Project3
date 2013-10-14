@@ -5,9 +5,13 @@
 
 //TRACE value
 extern int TRACE;
+//clocktime
+extern float clocktime;
 
 
 void initialize_node(int nodeid, int* local_costs, int* neighbors, struct distance_table* distance_table) {
+	printf("INITIALIZE_NODE: Initializing Node %d at Time %f \n", nodeid, clocktime);
+	
 	int i;
 	int j;
 	
@@ -23,14 +27,7 @@ void initialize_node(int nodeid, int* local_costs, int* neighbors, struct distan
 	for (i=0;i < NUM_NODES; i ++) {
 		//cost from THIS node to J
 		distance_table->costs[i][nodeid] = local_costs[i];
-	}
-	
-	
-	if (TRACE) {
-		printf("Node %d initialization done, printing distance table \n", nodeid);
-		print_distance_table(nodeid, distance_table);
-	}
-	
+	}	
 	//send the update packet to our neighbors
 	update_neighbors(nodeid, neighbors, distance_table);	
 
@@ -38,12 +35,9 @@ void initialize_node(int nodeid, int* local_costs, int* neighbors, struct distan
 
 
 void update_node(int nodeid, int* neighbors, struct distance_table* distance_table, struct rtpkt* rtpkt) {
-	if (TRACE) {
-		printf("Node %d received an update packet!! Hoorah! \n", nodeid);
-		print_min_costs(nodeid, rtpkt);
-	}
-	
 	int senderid = rtpkt->sourceid;
+	printf("UPDATE_NODE: Node %d received an update message from %d at time %f\n", nodeid, senderid, clocktime);
+	
 	int cost_to_node = min_cost_to(nodeid, senderid, distance_table);
 	
 	int orig_min_costs[NUM_NODES];
@@ -62,6 +56,7 @@ void update_node(int nodeid, int* neighbors, struct distance_table* distance_tab
 		}
 	}
 	if (changes) { // only do this if we made any changes above
+		printf("UPDATE_NODE: Node %d, changes were made to distance table \n", nodeid);
 		int new_min_costs[NUM_NODES];
 		get_min_costs(nodeid, distance_table, new_min_costs);
 		
@@ -75,15 +70,21 @@ void update_node(int nodeid, int* neighbors, struct distance_table* distance_tab
 		}
 	
 		if (update) {
-			if (TRACE > 1) {
-				printf("Node: %d, CHANGES WERE MADEEEE \n", nodeid);
-			}
+			printf("UPDATE_NODE: Node %d, There is a new minimum path to a node,"
+				"sending new miniumum path data to our neighbors \n", nodeid);
 			//if we made a change update our neighbors saying we did. hoorah
 			update_neighbors(nodeid, neighbors, distance_table);
 			//if we made changes lets print out our new distance table
 			print_distance_table(nodeid, distance_table);
+			printf("Node %d min costs \n", nodeid);
+			print_min_costs(nodeid, distance_table);
 		}
 	}
+	
+	printf("UPDATE_NODE: Node %d, The distance table at the end of the update, \n", nodeid);
+	print_distance_table(nodeid, distance_table);
+	printf("UPDATE_NODE: Node %d, The minimum path values at the end of the update, \n", nodeid);
+	print_min_costs(nodeid, distance_table);
 }
 
 void get_min_costs(int nodeid, struct distance_table* distance_table, int* min_costs) {
@@ -142,11 +143,21 @@ int min_cost_to(int nodeid, int dest_node, struct distance_table* distance_table
 
 
 
-void print_min_costs(int nodeid, struct rtpkt* update_packet) {
+void print_min_costs_packet(int nodeid, struct rtpkt* update_packet) {
 	
 	printf("TO\t0\t1\t2\t3\t VIA: %d\n", update_packet->sourceid);
 	printf("\t%d\t%d\t%d\t%d\n", update_packet->mincost[0], update_packet->mincost[1],
 								 update_packet->mincost[2], update_packet->mincost[3]);
+}
+
+void print_min_costs(int nodeid, struct distance_table* distance_table) {
+	int min_costs[4];
+	get_min_costs(nodeid, distance_table, min_costs);
+	
+	printf("TO\t0\t1\t2\t3\t\n");
+	printf("\t%d\t%d\t%d\t%d\n", min_costs[0], min_costs[1],
+								 min_costs[2], min_costs[3]);
+	
 }
 
 void print_distance_table(int nodeid, struct distance_table* dist_tbl) {

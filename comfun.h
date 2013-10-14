@@ -92,7 +92,14 @@ void print_distance_table(int nodeid, struct distance_table* dist_tbl);
 	@param update_packet The update packet the node received
 */
 
-void print_min_costs(int nodeid, struct rtpkt* update_packet);
+void print_min_costs_packet(int nodeid, struct rtpkt* update_packet);
+
+/** Prints out the minimum costs for the given node
+	@param nodeid The node to print the minimum costs for
+	@param distance_table The distance table for the node
+*/
+
+void print_min_costs(int nodeid, struct distance_table* distance_table);
 
 
 
